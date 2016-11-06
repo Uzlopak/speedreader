@@ -1,6 +1,7 @@
 // spritz.js
 // A JavaScript Speed Reader
 //
+// a fork of
 // rich@gun.io
 // https://github.com/Miserlou/OpenSpritz
 
@@ -11,6 +12,9 @@
     	switch (action){
     		case 'start':
     			start(options);
+    			break;
+    		case 'continue':
+    			start(obj.data('current'))
     			break;
     		case 'stop':
     			stop();
@@ -41,7 +45,10 @@
     };
     
     
-    function create (){
+    function create (options){
+    	options = $.extend({
+    		notchPosition : 5
+    	}, options);
     	//remove all child Elements
     	obj.empty();
         
@@ -53,10 +60,30 @@
         obj.append(' <div class="guide_bottom"></div>');
         
         setWordsPerMinute(200);
-    	$(obj).data('timerId', null);
-    	$(obj).data('current', 0);
-    	$(obj).data('end', 0);
+    	obj.data('timerId', null);
+    	obj.data('current', 0);
+    	obj.data('end', 0);
+    	setNotchPosition(options.notchPosition);
+    	
+
+        val('ready', options.notchPosition);
     };
+    
+    function setNotchPosition (position){
+    	position = position || 5;
+    	
+    	switch (position){
+    		case 5: 
+    		case 6:
+    		case 7: 
+    			break;
+    		default: 
+    			position = 5;
+    	}
+    	obj.removeClass('notchPosition5 notchPosition6 notchPosition7');
+    	obj.data('notchPosition', position);
+    	obj.addClass('notchPosition' + position);
+    }
 
     function setWordsPerMinute(wpm ) {
     	var wpm = parseInt(wpm, 10) || 200;
@@ -71,10 +98,9 @@
     	var startPos = parseInt(startPos,10) || 0;
     	
     	obj.data('current', startPos);
-    	alert(startPos);
     	
     	if (obj.data('running') != null) {
-    		console.log('already running');
+    		debug('Error 0x0001 Already running');
     		return;
     	}
     	var ms_per_word = 60000/ obj.data('wpm');
@@ -86,7 +112,7 @@
             	obj.data('current', 0);
                 stop();
             }else{
-            	val(all_words[current]);
+            	val(all_words[current], obj.data('notchPosition'));
             	obj.data('current', ++current);
             }
         }, ms_per_word)
@@ -109,11 +135,10 @@
     	start();
     }
 
-    function val (word) {
+    function val (word, notchPosition) {
     	word = word || '';
     	textContainer.empty();
-    	console.log(word);
-    	textContainer.append(pivot(word));
+    	textContainer.append(pivot(word, notchPosition));
     }
     
     function setText(text) {
@@ -211,16 +236,17 @@
 	}
 	
 	// Find the red-character of the current word.
-	function pivot(word){
+	function pivot(word, notchPosition){
 		word = word || '';
+		notchPosition = notchPosition || 5;
 	    var length = word.length;
 
 	    var bestLetter = getBestLetter(length);
 
 	    word = decodeEntities(word);
-	    var start = '&nbsp;'.repeat((11-bestLetter)) + word.slice(0, bestLetter-1);
+	    var start = '&nbsp;'.repeat((notchPosition-bestLetter)) + word.slice(0, bestLetter-1);
 	    var middle = word.slice(bestLetter-1,bestLetter);
-	    var end = word.slice(bestLetter, length) + '&nbsp;'.repeat((11-(word.length-bestLetter)));
+	    var end = word.slice(bestLetter, length) + '&nbsp;'.repeat((notchPosition-(word.length-bestLetter)));
 
 	    var result = '';
 	    
@@ -234,6 +260,9 @@
 	    return $(result);
 	}
 	
+	function debug (options){
+		console.log(options);
+	}
 	
 }( jQuery ));
 

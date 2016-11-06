@@ -16,36 +16,59 @@
 	position: relative;
     background-color: #ffffff;
     /* 600px+; small tablet portrait */
-    width: 420px;
+    width: 13.125em;
     margin-left: auto;
     margin-right: auto;
-    line-height: 43px;
+    line-height: 1em;
     font-size: 32px;
 }
 
 .spritz_text{
-    text-align: center;
+    text-align: left;
     font-family: 'Droid Sans Mono', sans-serif;
     /* 600px+; small tablet portrait */
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    min-height: 80px;
+    padding: 0.3em 0 0.3em 0;
+    height: 1.6em;
 }
 
 .guide_top, .guide_bottom{
-    border-top: 3px solid #dddddd
+    border-top: 0.1em solid #111;
 }
-.guide_top::before{
-	content: 'ф';
-	font-size: 1.5em;
+.guide_top::before,
+.guide_bottom::after{
+	content: '.';
     position: absolute;
-    top: -0.6em;
-    color: #dddddd;
-    background-color: white;
+    color: transparent;
+    background-color: transparent;
+    height: 0.3em;
     left: 50%;
-    margin-left: -0.53em; /* Monospace Factor from height and width = 0.54 */
+    margin-left: -0.2em;
+    border-left: 0.1em solid #111;
 }
 
+.guide_top::before{
+    top: 0;
+}
+
+.guide_bottom::after{
+    bottom: 0;
+}
+.notchPosition5 .guide_top::before,
+.notchPosition5 .guide_bottom::after{
+    left: 2.7em;
+    margin-left: 0;
+}
+
+.notchPosition6 .guide_top::before,
+.notchPosition6 .guide_bottom::after{
+    left: 3.3em;
+    margin-left: 0;
+}
+.notchPosition7 .guide_top::before,
+.notchPosition7 .guide_bottom::after{
+    left: 3.9em;
+    margin-left: 0;
+}
 #spritz_selector, #spritz_toggle{
     float: left;
     width: auto;
@@ -62,7 +85,7 @@
     text-align: center;
     font-family: 'Droid Sans Mono', sans-serif;
     /* 600px+; small tablet portrait */
-    font-size: 32px;
+    font-size: 1em;
 }
 .pivot, .spritz_pivot{
     color: #de0000;

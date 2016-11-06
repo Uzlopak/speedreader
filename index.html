@@ -43,10 +43,25 @@
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Ante interdum</h2>
+										<h2>Options</h2>
 									</header>
+									<form>
+										<label>File:</label>
+										<input name="Datei" id="contentFile" type="file" accept="text/*">
+										<br /> 
+										<br /> 
+										<label>Words per minute:</label>
+										<select name="wpm" id="wpm">
+											<option value="200">200</option>
+											<option value="300">300</option>
+											<option value="400">400</option>
+											<option value="500">500</option>
+											<option value="600">600</option>
+										</select>
+									</form>
 									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
+										<li><a href="#" class="button" id="start">Start</a></li>
+										<li><a href="#" class="button" id="continue">Continue</a></li>
 									</ul>
 								</section>
 
@@ -67,9 +82,36 @@
 			<!--[if lte IE 8]><script src="templates/editorial/assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="templates/editorial/assets/js/main.js"></script>
 			<script src="libs/Spritz/spritz.js"></script>
+			<script src="libs/filereader.js/filereader.js"></script>
 			<script>
 			$(document).ready(function () {
-				$('#SpritzWidget').spritzify();
+				$('#SpritzWidget').spritzify().spritzify('setText', "ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier ein zwei Polizei, drei vier Grenadier");
+				
+				$("#contentFile").fileReaderJS({
+					readAsDefault: 'Text',					
+					on : {
+					    load: function(e, file) { $('#SpritzWidget').spritzify().spritzify('setText', e.target.result);}
+					}
+				});
+				
+				$('#wpm').on('change', function () {
+					if ($('#SpritzWidget').data('timerId') != null)
+					$('#SpritzWidget').spritzify('setWordsPerMinute', $(this).val());
+				});
+
+				$('#start').on('click', function () {
+					$('.toggle').trigger('click');
+					setTimeout(function(){ $('#SpritzWidget').spritzify('start'); }, 1000);
+				});
+				
+				$('#continue').on('click', function () {
+					$('.toggle').trigger('click');
+					setTimeout(function(){ $('#SpritzWidget').spritzify('continue'); }, 1000);
+				});
+
+				$('.toggle').on('click', function () {
+					 $('#SpritzWidget').spritzify('stop');
+				});
 			});
 			</script>
 
