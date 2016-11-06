@@ -1,0 +1,25 @@
+CACHE MANIFEST
+
+CACHE:
+index.html
+libs/filereader.js/filereader.js
+libs/Spritz/fonts/Droid_Sans_Mono/DroidSansMono.ttf
+libs/Spritz/spritz.js
+libs/Spritz/style.css
+templates/editorial/assets/css/font-awesome.min.css
+templates/editorial/assets/css/ie8.css
+templates/editorial/assets/css/ie9.css
+templates/editorial/assets/css/main.css
+templates/editorial/fonts/fontawesome-webfront.eot
+templates/editorial/fonts/fontawesome-webfront.svg
+templates/editorial/fonts/fontawesome-webfront.ttf
+templates/editorial/fonts/fontawesome-webfront.woff
+templates/editorial/fonts/fontawesome-webfront.woff2
+templates/editorial/fonts/FontAwesome.otf
+templates/editorial/js/jquery.min.js
+templates/editorial/js/main.js
+templates/editorial/js/skel.min.js
+templates/editorial/js/util.js
+templates/editorial/js/ie/html5shiv.js
+templates/editorial/js/ie/respond.min.js
+
